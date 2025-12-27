@@ -4,33 +4,38 @@ server:
 spring:
   application:
     name: api-gateway
+
   cloud:
     gateway:
       routes:
+
+        # AUTH / LOGIN
+        - id: auth-service
+          uri: lb://MS-INTERFACE
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=1
+
+        # COMMANDES
         - id: commandes-service
           uri: lb://MS-COMMANDES
           predicates:
-            - Path=/commandes/**
+            - Path=/api/commandes/**
           filters:
             - StripPrefix=1
 
+        # PRODUITS
         - id: produits-service
           uri: lb://MS-PRODUITS
           predicates:
-            - Path=/produits/**
-          filters:
-            - StripPrefix=1
-
-        - id: interface-service
-          uri: lb://MS-INTERFACE
-          predicates:
-            - Path=/interface/**
+            - Path=/api/produits/**
           filters:
             - StripPrefix=1
 
     discovery:
       locator:
-        enabled: true  # allows automatic route discovery via Eureka
+        enabled: true
 
 eureka:
   client:
