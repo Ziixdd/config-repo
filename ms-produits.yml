@@ -1,5 +1,5 @@
 server:
-  port: 0 # Keeps dynamic port allocation if desired
+  port: 8082 # Keeps dynamic port allocation if desired
 
 spring:
   datasource:
